@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<PLUGIN>
+    <NAME>HBA Info</NAME>
+    <AUTHOR>Ac3sRwild</AUTHOR>
+    <VERSION>2025.08.10</VERSION>
+    <DESCRIPTION>
+        This plugin displays LSI HBA information on the dashboard using the storcli utility
+    </DESCRIPTION>
+    <CATEGORY>System</CATEGORY>
+    <ICON>https://example.com/icon.png</ICON>
+
+    <DEPENDENCIES>
+        <PACKAGE>
+            <NAME>storcli64</NAME>
+            <URL>https://forums.unraid.net/topic/192112-plugin-storcli64/</URL>
+            <DESCRIPTION>StorCLI management tool for LSI HBAs</DESCRIPTION>
+        </PACKAGE>
+    </DEPENDENCIES>
+
+    <INSTALL>
+        <FILE>
+            <URL>https://example.com/check_hba_temp.sh</URL>
+            <TARGET>/usr/local/emhttp/plugins/hba_info/scripts/check_hba_info.sh</TARGET>
+            <MODE>0755</MODE>
+        </FILE>
+    </INSTALL>
+
+    <DISPLAY>
+        <FILE>
+            <URL>https://example.com/dashboard.php</URL>
+            <TARGET>/usr/local/emhttp/plugins/hba_info/dashboard.php</TARGET>
+        </FILE>
+    </DISPLAY>
+</PLUGIN>
