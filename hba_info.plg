@@ -7,7 +7,7 @@
         This plugin displays LSI HBA information on the dashboard using the storcli utility
     </DESCRIPTION>
     <CATEGORY>System</CATEGORY>
-    <ICON>https://example.com/icon.png</ICON>
+    <ICON>https://raw.githubusercontent.com/Ac3sRwild/unraid-hba-info/refs/heads/main/hba.png</ICON>
 
     <DEPENDENCIES>
         <PACKAGE>
