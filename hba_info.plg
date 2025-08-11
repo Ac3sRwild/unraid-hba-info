@@ -19,7 +19,7 @@
 
     <INSTALL>
         <FILE>
-            <URL>https://example.com/check_hba_temp.sh</URL>
+            <URL>https://raw.githubusercontent.com/Ac3sRwild/unraid-hba-info/refs/heads/main/check_hba_info.sh</URL>
             <TARGET>/usr/local/emhttp/plugins/hba_info/scripts/check_hba_info.sh</TARGET>
             <MODE>0755</MODE>
         </FILE>
@@ -27,7 +27,7 @@
 
     <DISPLAY>
         <FILE>
-            <URL>https://example.com/dashboard.php</URL>
+            <URL>https://raw.githubusercontent.com/Ac3sRwild/unraid-hba-info/refs/heads/main/dashboard.php</URL>
             <TARGET>/usr/local/emhttp/plugins/hba_info/dashboard.php</TARGET>
         </FILE>
     </DISPLAY>
