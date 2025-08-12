@@ -1,0 +1,8 @@
+{
+    "name": "hba-info",
+    "package_name": "unraid-hba-info",
+    "author": "Ac3sRwild",
+    "min": "7.0.0",
+    "icon": "microchip",
+    "support": "https://forums.unraid.net/topic/192112-plugin-storcli64/"
+}
