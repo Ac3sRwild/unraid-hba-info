@@ -1,0 +1,90 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN>
+
+<PLUGIN 
+  name="hba-info"
+  author="Ac3sRwild"
+  version="2025.08.11"
+  
+  pluginURL="https://raw.githubusercontent.com/Ac3sRwild/unraid-hba-info/main/plugin/hba-info.plg"
+  support="https://forums.unraid.net/topic/192112-plugin-storcli64/"
+  min="7.0.0"
+  
+  icon="microchip"
+>
+
+<CHANGES>
+<![CDATA[
+
+### 2025.08.11
+
+initial testing
+
+
+For older releases, see https://github.com/Ac3sRwild/unraid-hba-info/releases
+]]>
+</CHANGES>
+
+<!-- The 'pre-install' script. -->
+<FILE Run="/bin/bash">
+<INLINE>
+<![CDATA[
+if [ "$(which storcli64 2>/dev/null)" ] || [ -d /boot/config/plugins/storcli ]; then
+    echo "********************************************************************"
+    echo
+    echo "Detected storcli utility. Continuing install."
+    echo
+    echo "********************************************************************"
+else
+    echo "********************************************************************"
+    echo
+    echo "No storcli utility found."
+    echo "Please install storcli64 from the Unraid Community Applications or manually before using this plugin."
+    echo
+    echo "********************************************************************"
+fi
+]]>
+</INLINE>
+</FILE>
+
+<FILE Name="/boot/config/plugins/hba-info/unraid-hba-info-2025.08.11-noarch-1.txz">
+<URL>https://github.com/Ac3sRwild/unraid-hba-info/releases/download/2025.08.11/unraid-hba-info-2025.08.11-noarch-1.txz</URL>
+<SHA256>13413c1bf8b7ea7ac116571aa5a2ba6b99ca809714e016a6b0ca776e82a1467d</SHA256>
+</FILE>
+
+<!--
+The 'install' script.
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+<![CDATA[
+upgradepkg --install-new /boot/config/plugins/hba-info/unraid-hba-info-2025.08.11-noarch-1.txz
+
+# cleanup old versions
+rm -f $(ls /boot/config/plugins/hba-info/unraid-hba-info-*.txz 2>/dev/null | grep -v '2025.08.11')
+
+echo ""
+echo "----------------------------------------------------"
+echo " hba-info has been installed."
+echo " Version: 2025.08.11"
+echo "----------------------------------------------------"
+echo ""
+]]>
+</INLINE>
+</FILE>
+
+<!--
+The 'remove' script.
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+<![CDATA[
+removepkg unraid-hba-info
+
+rm -rf /usr/local/emhttp/plugins/hba-info
+rm -rf /boot/config/plugins/hba-info
+]]>
+</INLINE>
+</FILE>
+
+</PLUGIN>
