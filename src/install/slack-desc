@@ -1,9 +1,9 @@
               |-----handy-ruler------------------------------------------------------|
-unraid-hba-info: unraid-hba-info
+unraid-hba-info: unraid-lsi-mon
 unraid-hba-info:
 unraid-hba-info: Displays info from the storcli utility on the dashboard.
 unraid-hba-info: 
 unraid-hba-info: Depends on the storcli binary.
 unraid-hba-info:
 unraid-hba-info: 
-unraid-hba-info: https://github.com/Ac3sRwild/unraid-hba-info
+unraid-hba-info: https://github.com/Ac3sRwild/unraid-lsi-mon
