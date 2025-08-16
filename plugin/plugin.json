@@ -1,9 +1,9 @@
 {
-    "name": "hba-info",
-    "package_name": "unraid-hba-info",
+    "name": "lsi-mon",
+    "package_name": "unraid-lsi-mon",
     "author": "Ac3sRwild",
     "min": "7.0.0",
     "icon": "broadcom.png",
     "support": "https://forums.unraid.net/topic/192112-plugin-storcli64/",
-    "launch": "Settings/hba-info"
+    "launch": "Settings/lsi-mon"
 }
