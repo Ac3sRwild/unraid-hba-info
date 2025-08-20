@@ -1,0 +1,102 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN>
+
+<PLUGIN 
+  name="lsi-mon"
+  author="Ac3sRwild"
+  version="2025.08.19"
+  launch="Settings/lsi-mon"
+  pluginURL="https://raw.githubusercontent.com/Ac3sRwild/unraid-lsi-mon/main/plugin/lsi-mon.plg"
+  support="https://forums.unraid.net/topic/192112-plugin-storcli64/"
+  min="7.0.0"
+  
+  icon="broadcom.png"
+>
+
+<CHANGES>
+<![CDATA[
+
+### 2025.08.19
+
+Initial Release
+
+
+For older releases, see https://github.com/Ac3sRwild/unraid-lsi-mon/releases
+]]>
+</CHANGES>
+
+<!-- The 'pre-install' script. -->
+<FILE Run="/bin/bash">
+<INLINE>
+<![CDATA[
+if [ "$(which storcli64 2>/dev/null)" ] || [ -d /boot/config/plugins/storcli ]; then
+    echo "********************************************************************"
+    echo
+    echo "Detected storcli utility. Continuing install."
+    echo
+    echo "********************************************************************"
+else
+    echo "********************************************************************"
+    echo
+    echo "No storcli utility found."
+    echo "Please install storcli64 from the Unraid Community Applications or manually before using this plugin."
+    echo
+    echo "********************************************************************"
+fi
+]]>
+</INLINE>
+</FILE>
+
+<FILE Name="/boot/config/plugins/lsi-mon/unraid-lsi-mon-2025.08.19-noarch-1.txz">
+<URL>https://github.com/Ac3sRwild/unraid-lsi-mon/releases/download/2025.08.19/unraid-lsi-mon-2025.08.19-noarch-1.txz</URL>
+<SHA256>9ee1c368953d0968d5d437c8783b435989a39ac84b63b5f7af69d561c5b0d1a9</SHA256>
+</FILE>
+
+<!-- Install default plugin cfg  -->
+<FILE Name="/boot/config/plugins/lsi-mon/lsi-mon.cfg">
+<INLINE>
+<![CDATA[
+STORCLIVER="storcli"
+TEMPWARN="85"
+TEMPALERT="100"
+TEMPMONINT="30000"
+]]>
+</INLINE>
+</FILE>
+
+<!--
+The 'install' script.
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+<![CDATA[
+upgradepkg --install-new /boot/config/plugins/lsi-mon/unraid-lsi-mon-2025.08.19-noarch-1.txz
+
+# cleanup old versions
+rm -f $(ls /boot/config/plugins/lsi-mon/unraid-lsi-mon-*.txz 2>/dev/null | grep -v '2025.08.19')
+
+echo ""
+echo "----------------------------------------------------"
+echo " lsi-mon has been installed."
+echo " Version: 2025.08.19"
+echo "----------------------------------------------------"
+echo ""
+]]>
+</INLINE>
+</FILE>
+
+<!--
+The 'remove' script.
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+<![CDATA[
+removepkg unraid-lsi-mon
+
+rm -rf /usr/local/emhttp/plugins/lsi-mon
+rm -rf /boot/config/plugins/lsi-mon
+]]>
+</INLINE>
+</FILE>
+
+</PLUGIN>
