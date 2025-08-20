@@ -1,20 +1,19 @@
 #!/bin/bash
 
-STORCLI="/usr/local/bin/storcli64"
+source /boot/config/plugins/lsi-mon/lsi-mon.cfg
 
-# Find all controller IDs (e.g., 0, 1, 2, ...)
-controllers=$($STORCLI show | awk '/Controller =/ {print $3}')
+STORCLI=$STORCLIVER
+controllers=$($STORCLI show nolog | grep -i "Number of Controllers" | head -n1 | awk -F"=" '{split($2,a," "); print a[1]}')
 
-for controller in $controllers; do
-    CONTROLLER="/c$controller"
-    INFO="$($STORCLI $CONTROLLER show all)"
+for (( c=0; c<$controllers; c++ )); do
+    INFO="$($STORCLI /c$c show all nolog)"
 
-    ADAPTER_TYPE=$(echo "$INFO" | grep -i "Product Name" | head -n1 | awk -F':' '{print $2}' | xargs)
-    MODEL=$(echo "$INFO" | grep -i "Model Number" | head -n1 | awk -F':' '{print $2}' | xargs)
-    SERIAL=$(echo "$INFO" | grep -i "Serial Number" | head -n1 | awk -F':' '{print $2}' | xargs)
-    FW_VER=$(echo "$INFO" | grep -i "FW Version" | head -n1 | awk -F':' '{print $2}' | xargs)
-    TEMP=$(echo "$INFO" | grep -i "Temperature" | head -n1 | awk -F':' '{print $2}' | xargs)
+    MODEL=$(echo "$INFO" | grep -i "Model" | head -n1 | awk -F"=" '{split($2,a," "); print a[1]}' | xargs)
+    CONTROLLER=$(echo "$INFO" | grep -i "Adapter Type" | head -n1 | awk -F"=" '{split($2,a," "); print a[1]}' | xargs)
+    SERIAL=$(echo "$INFO" | grep -i "Serial Number" | head -n1 | awk -F"=" '{split($2,a," "); print a[1]}' | xargs)
+    FW_VER=$(echo "$INFO" | grep -i "Firmware Version" | head -n1 | awk -F"=" '{split($2,a," "); print a[1]}' | xargs)
+    TEMP=$(echo "$INFO" | grep -i "ROC temperature" | head -n1 | awk -F"=" '{split($2,a," "); print a[1]}' | xargs)
 
     # Output one line per controller, tab-separated
-    echo "$controller	$ADAPTER_TYPE	$MODEL	$SERIAL	$FW_VER	$TEMP"
+    echo "$c	$MODEL	$CONTROLLER	$SERIAL	$FW_VER	$TEMP"
 done
