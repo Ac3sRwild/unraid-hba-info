@@ -48,6 +48,18 @@ fi
 <SHA256>{{ env['PLUGIN_CHECKSUM'] }}</SHA256>
 </FILE>
 
+<!-- Install default plugin cfg  -->
+<FILE Name="/boot/config/plugins/lsi-mon/lsi-mon.cfg">
+<INLINE>
+<![CDATA[
+STORCLIVER="storcli"
+TEMPWARN="85"
+TEMPALERT="100"
+TEMPMONINT="30000"
+]]>
+</INLINE>
+</FILE>
+
 <!--
 The 'install' script.
 -->
